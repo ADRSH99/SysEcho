@@ -56,6 +56,23 @@ SysEcho/
 └── README.md                # You're here
 ```
 
+
+---
+
+## Available Commands
+
+You can run `sysecho` with various subcommands:
+
+| Command         | Description |
+|------------------|-------------|
+| `sysecho all`     | Show full system summary: CPU, memory, disk, battery, containers, uptime, etc. |
+| `sysecho net`     | Display network interface details and IP addresses |
+| `sysecho battery` | Show battery status and charge level (if applicable) |
+| `sysecho host`    | Show hostname, current user, and kernel version |
+| `sysecho sys`     | Show system metrics: CPU usage, RAM usage, load average, disk space |
+| `sysecho proc`    | Show basic process info or count (optional feature) |
+| `sysecho containers` | Show Docker container stats using `docker stats --no-stream` |
+
 ---
 
 ##  Prerequisites
