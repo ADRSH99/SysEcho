@@ -8,6 +8,7 @@ sysinfo = "0.30"
 whoami = "1.4"
 battery = "0.7.8"
 get_if_addrs = "0.5"
+duct = "0.13"
 
 colored = "2.1"
 console = "0.15"   

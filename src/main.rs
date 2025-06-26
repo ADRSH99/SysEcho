@@ -28,6 +28,9 @@ enum Commands {
 
     ///Show all processes
     Proc,
+
+    ///Containers
+    Containers
 }
 
 fn main() {
@@ -39,6 +42,7 @@ fn main() {
         Commands::Net => modules::network::show(),
         Commands::Battery => modules::battery::show(),
         Commands::Proc => modules::process::show(),
+        Commands::Containers => modules::containers::show(),
         Commands::All => {
             modules::hostinfo::show();
             modules::systeminfo::show();
