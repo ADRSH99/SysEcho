@@ -14,7 +14,6 @@
 - Docker Container Stats:
   - Container ID, name, CPU usage, memory usage
 - Colorful, clean terminal output
-- Single binary, installable via `install.sh`
 - Optional config support via `TOML`
 - CLI argument parsing using `clap`
 
@@ -43,10 +42,15 @@
 SysEcho/
 ├── src/                     # Rust source files
 │   ├── main.rs
-│   └── ...
-├── bin/                     # Precompiled binaries
+│   └── modules/
+|    ├── battery.rs
+|    ├── containers.rs
+|    ├── hostinfo.rs
+|    ├── mod.rs
+|    ├── network.rs
+|    └── systeminfo.rs
+├── dist/                     # Precompiled binaries
 │   └── sysecho-linux-x86_64
-├── install.sh               # Install script
 ├── config.toml (optional)   # Sample config
 ├── Cargo.toml               # Project metadata
 └── README.md                # You're here
@@ -54,42 +58,69 @@ SysEcho/
 
 ---
 
-## ⚙️ Installation
+##  Prerequisites
 
-### 🔹 1. Clone the Repository
-
-```bash
-git clone https://github.com/ADRSH99/SysEcho.git
-cd SysEcho
-```
-
-### 🔹 2. Install the Precompiled Binary
-
-```bash
-chmod +x install.sh
-./install.sh
-```
-
-- Installs to `/usr/local/bin` (if root)
-- Installs to `~/.local/bin` (if non-root)
-
-Make sure `~/.local/bin` is in your `$PATH`.
+- You are on **Linux x86_64**
+- You have downloaded the `SysEcho` repo or just the binary
+- The binary is located at `dist/sysecho-linux-x86_64`
 
 ---
 
-## 💻 System Commands Used
+##  1. Make the Binary Executable
 
-SysEcho invokes these under the hood:
-
-| Command | Description |
-|---------|-------------|
-| `uptime` | System uptime and load |
-| `df -h` | Disk usage |
-| `free -h` | Memory usage |
-| `docker stats --no-stream` | Docker container stats |
-| `uname`, `hostname`, `whoami` | System ID info |
+```bash
+chmod +x dist/sysecho-linux-x86_64
+```
 
 ---
+
+##  2. Run It Directly
+
+```bash
+./dist/sysecho-linux-x86_64
+```
+
+You should now see system stats and Docker container information.
+
+---
+
+## 🛠️ 3. (Optional) Install the Binary
+
+###  If you have root access:
+
+```bash
+sudo mv dist/sysecho-linux-x86_64 /usr/local/bin/sysecho
+```
+
+Now you can run it anywhere:
+
+```bash
+sysecho
+```
+
+---
+
+### If you don’t have root access:
+
+1. Move the binary:
+   ```bash
+   mkdir -p ~/.local/bin
+   mv dist/sysecho-linux-x86_64 ~/.local/bin/sysecho
+   ```
+
+2. Add to your PATH (if not already):
+   ```bash
+   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+3. Run:
+   ```bash
+   sysecho
+   ```
+
+---
+
 
 ## 🐳 Docker Access
 
@@ -127,18 +158,3 @@ cp target/release/sysecho bin/sysecho-linux-x86_64
 
 ---
 
-## 📄 Configuration (Optional)
-
-Create a `config.toml` in the working directory to override display preferences, logging, or sections. *(Feature in progress)*
-
----
-
-## 🔚 Notes
-
-- Currently only built and tested for Linux x86_64
-- Binary size can be reduced with `strip`
-- Future support: TUI mode, logging to file, sorting containers
-
----
-
-Feel free to fork, improve, and open issues or PRs!
